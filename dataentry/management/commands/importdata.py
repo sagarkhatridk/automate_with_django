@@ -36,4 +36,5 @@ class Command(BaseCommand):
             for row in reader:
                 model.objects.create(**row)
 
+
         self.stdout.write(self.style.SUCCESS("Data inserted Successfully"))
