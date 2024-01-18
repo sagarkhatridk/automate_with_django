@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.db import DataError
 from dataentry.models import Student
 import csv
 from django.apps import apps
@@ -31,8 +32,18 @@ class Command(BaseCommand):
         if not model:
             raise CommandError(f"Model '{model_name}' not found in any App.")
 
+        # compare csv header with model's field names
+        #  get all the field names of the modal that we found
+        model_fields = [field.name for field in model._meta.fields if field.name != 'id']
+
         with open(file_path, 'r') as file:
             reader = csv.DictReader(file)
+            csv_header = reader.fieldnames
+
+            # compare the csv header to the model fields
+            if csv_header != model_fields:
+                raise DataError(f"CSV file does't match the {model_name} table fields.")
+
             for row in reader:
                 model.objects.create(**row)
 
