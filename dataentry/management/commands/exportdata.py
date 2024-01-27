@@ -2,7 +2,7 @@ import csv
 from django.core.management.base import BaseCommand, CommandParser
 import datetime
 from django.apps import apps
-
+from dataentry.utils import generate_csv_file
 
 class Command(BaseCommand):
     """python manage.py exportdata {{model_name}}"""
@@ -23,8 +23,8 @@ class Command(BaseCommand):
             try:
                 model = apps.get_model(app_label=app_config.label, model_name=model_name)
                 break # stop search if model found
-            except LookupError as Error:
-                self.stderr.write(self.style.ERROR(Error))
+            except LookupError:
+                pass
 
         if not model:
             self.stderr.write(f"Model '{model_name}' not found!.")
@@ -32,9 +32,9 @@ class Command(BaseCommand):
 
         data = model.objects.all()
 
-        # define the csv file name/path
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-        file_path = f"exported_{model_name}_data_{timestamp}.csv"
+
+        # generate CSV file_path
+        file_path = generate_csv_file(model_name)
 
         # open the CSV file and write the data.
         with open(file_path, 'w', newline="") as file:
