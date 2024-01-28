@@ -48,10 +48,11 @@ def check_csv_function(file_path, model_name):
 def send_email_notification(mail_subject, message, to_email, attechment=None):
     try:
         from_email = settings.DEFAULT_FROM_EMAIL
-        mail = EmailMessage(mail_subject, message, from_email, to=[to_email])
+        mail = EmailMessage(mail_subject, message, from_email, to=to_email)
 
         if attechment is not None:
             mail.attach_file(attechment)
+        mail.content_subtype = "html"
         mail.send()
     except Exception as E:
         raise E
