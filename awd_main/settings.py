@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'emails',
     'ckeditor',
+    'anymail',
 ]
 
 MIDDLEWARE = [
@@ -149,11 +150,11 @@ MESSAGE_TAGS = {
 CELERY_BROKER_URL = 'redis://localhost:6379'
 
 # emain conf
-EMAIL_HOST =  config('EMAIL_HOST')
-EMAIL_PORT =  config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER =  config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True
+# EMAIL_HOST =  config('EMAIL_HOST')
+# EMAIL_PORT =  config('EMAIL_PORT', cast=int)
+# EMAIL_HOST_USER =  config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Automate With Django <sagarkhatridk@gmail.com>'
 DEFAULT_TO_EMAIL = 'mydefaultmail.bysagar@yopmail.com'
 
@@ -164,4 +165,11 @@ CKEDITOR_CONFIGS = {
     'default': {
         'height': 200,
     },
+}
+
+
+# brevo conf - Email service
+EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
+ANYMAIL = {
+    "SENDINBLUE_API_KEY": config("SENDINBLUE_API_KEY")
 }
