@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -173,3 +173,7 @@ EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
 ANYMAIL = {
     "SENDINBLUE_API_KEY": config("SENDINBLUE_API_KEY")
 }
+
+
+CSRF_TRUSTED_ORIGINS = ['https://6169-2402-3a80-1b86-d044-6436-2ee7-485-ed2.ngrok-free.app']
+BASE_URL = 'https://6169-2402-3a80-1b86-d044-6436-2ee7-485-ed2.ngrok-free.app'
