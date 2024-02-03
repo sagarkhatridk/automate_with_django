@@ -26,10 +26,11 @@ urlpatterns = [
     path("dataentry/", include('dataentry.urls')),
     path('emails/', include('emails.urls')),
     path("celery-test/", views.celery_test),
+    path('image-comression/', include("image_compression.urls")),
+    path('web-scraping/', include("stockanalysis.urls")),
 
     # Registration and Login URLs.
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
-    path('image-comression/', include("image_compression.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
