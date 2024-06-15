@@ -9,7 +9,6 @@ import datetime
 import os
 import time
 from emails.models import Email, Sent, EmailTracking, Subscriber
-from bs4 import BeautifulSoup
 
 def get_all_custom_models():
     default_models = [

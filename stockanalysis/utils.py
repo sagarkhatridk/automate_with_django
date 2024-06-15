@@ -1,5 +1,5 @@
 import requests
-from bs4 import BeautifulSoup
+from parsel import Selector
 
 def scrape_stock_data(symbol, exchange):
     if exchange == "NASDAQ":
@@ -18,16 +18,18 @@ def scrape_stock_data(symbol, exchange):
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
 
-            soup = BeautifulSoup(response.content, 'html.parser')
-            current_price = soup.find("fin-streamer", {"data-symbol": f"{symbol}"})['value']
-            price_changed = soup.find("fin-streamer", {"data-symbol": f"{symbol}", 'data-test':'qsp-price-change'}).span.text
-            percentage_changed = soup.find("fin-streamer", {"data-symbol": f"{symbol}", 'data-field':'regularMarketChangePercent'}).span.text
-            privious_close = soup.find('td', {'data-test': 'PREV_CLOSE-value'}).text
-            week_52_range = soup.find('td', {'data-test': 'FIFTY_TWO_WK_RANGE-value'}).text
+            html_content = Selector(response.text)
+            current_price = html_content.xpath(f'//fin-streamer[@data-symbol="{symbol}"][@data-testid="qsp-price"]/@data-value').get('')
+            price_changed = "".join(html_content.xpath(f'//fin-streamer[@data-symbol="{symbol}"][@data-testid="qsp-price-change"]/span/text()').getall())
+            percentage_changed = html_content.xpath(f'//fin-streamer[@data-symbol="{symbol}"][@data-testid="qsp-price-change-percent"]/@data-value').get('')
+            privious_close = html_content.xpath(f'//fin-streamer[@data-symbol="{symbol}"][@data-field="regularMarketPreviousClose"]/@data-value').get('')
+
+            week_52_range = html_content.xpath(f'//fin-streamer[@data-symbol="{symbol}"][@data-field="fiftyTwoWeekRange"]/@data-value').get('')
+            print('week_52_range: ', week_52_range)
             week_52_low, week_52_high = week_52_range.split(' - ')
-            market_cap = soup.find('td', {'data-test': 'MARKET_CAP-value'}).text
-            pe_ratio = soup.find('td', {'data-test': 'PE_RATIO-value'}).text
-            divident_yield = soup.find('td', {'data-test': 'DIVIDEND_AND_YIELD-value'}).text
+            market_cap = html_content.xpath(f'//fin-streamer[@data-symbol="{symbol}"][@data-field="marketCap"]/@data-value').get('')
+            pe_ratio = html_content.xpath(f'//fin-streamer[@data-symbol="{symbol}"][@data-field="trailingPE"]/@data-value').get('')
+            divident_yield = html_content.xpath('//span[contains(text(), "Forward Dividend & Yield")]/following-sibling::span[1]/text()').get('')
 
             return {
                 "current_price":current_price,
