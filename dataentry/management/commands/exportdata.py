@@ -1,5 +1,5 @@
 import csv
-from django.core.management.base import BaseCommand, CommandParser
+from django.core.management.base import BaseCommand
 import datetime
 from django.apps import apps
 from dataentry.utils import generate_csv_file

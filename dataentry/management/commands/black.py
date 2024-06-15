@@ -1,10 +1,6 @@
 import os
 import subprocess
-import csv
-from django.core.management.base import BaseCommand, CommandParser
-import datetime
-from django.apps import apps
-from dataentry.utils import generate_csv_file
+from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
     """python manage.py black"""
