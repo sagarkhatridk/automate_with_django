@@ -49,6 +49,13 @@ INSTALLED_APPS = [
     'anymail',
     'image_compression',
     'stockanalysis',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',  # GitHub provider
+    'allauth.socialaccount.providers.google',  # GitHub provider
 ]
 
 MIDDLEWARE = [
@@ -59,6 +66,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "allauth.account.middleware.AccountMiddleware",
+
+
 ]
 
 ROOT_URLCONF = 'awd_main.urls'
@@ -179,5 +190,17 @@ ANYMAIL = {
 }
 
 
-CSRF_TRUSTED_ORIGINS = ['https://6169-2402-3a80-1b86-d044-6436-2ee7-485-ed2.ngrok-free.app']
-BASE_URL = 'https://6169-2402-3a80-1b86-d044-6436-2ee7-485-ed2.ngrok-free.app'
+CSRF_TRUSTED_ORIGINS = ['https://1366-2409-40c1-2b-5114-64ca-10a7-c93e-48c0.ngrok-free.app']
+BASE_URL = 'https://1366-2409-40c1-2b-5114-64ca-10a7-c93e-48c0.ngrok-free.app/'
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_VERIFICATION = 'none'  # For development, you can disable email verification
+ACCOUNT_EMAIL_REQUIRED = True  # Change this as per your requirement

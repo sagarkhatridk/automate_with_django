@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load socialaccount %} <!-- Add this to load the provider_login_url tag -->
+
+
+{% block content %}
+<div class="container mt-5 p-3 shadow rounded text-center" style="max-width: 600px;">
+    <h2 class="text-center">Continue with GitHub</h2>
+
+    <div class="mt-4">
+        <form action="{% provider_login_url 'github' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-dark btn-lg">
+                <i class="fab fa-github"></i> Continue with GitHub
+            </button>
+        </form>
+
+        <form action="{% provider_login_url 'google' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-dark btn-lg">
+                <i class="fab fa-github"></i> Continue with GitHub
+            </button>
+        </form>
+
+    </div>
+
+    <div class="mt-4">
+        <p>By continuing, you agree to our <a href="/terms/">Terms of Service</a> and <a href="/privacy/">Privacy
+                Policy</a>.</p>
+    </div>
+</div>
+{% endblock %}

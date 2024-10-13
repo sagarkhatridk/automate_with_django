@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
+{% load socialaccount %}
 
 {% block content %}
 
@@ -14,9 +14,31 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Register" class="btn btn-success">
+            <input type="submit" value="Register" class="btn btn-success btn-block">
         </div>
     </form>
+
+    <div class="text-center mt-4">
+        <p>Or sign up using:</p>
+
+        <div class="d-grid gap-3">
+            <form action="{% provider_login_url 'github' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-dark btn-block" style="width: 100%; padding: 10px;">
+                    <i class="fab fa-github"></i> Sign up with GitHub
+                </button>
+            </form>
+
+            <form action="{% provider_login_url 'google' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-social btn-google">
+                    <i class="fa-brands fa-google"></i>
+                    Sign up with Google
+                </button>
+            </form>
+        </div>
+    </div>
+
     {% include 'alerts.html' %}
 </div>
 
