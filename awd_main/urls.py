@@ -28,6 +28,8 @@ urlpatterns = [
     path("celery-test/", views.celery_test),
     path('image-comression/', include("image_compression.urls")),
     path('web-scraping/', include("stockanalysis.urls")),
+    path('qr/', include("qrcode_app.urls")),
+
 
     # Registration and Login URLs.
     path('register/', views.register, name='register'),

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'anymail',
     'image_compression',
     'stockanalysis',
+    'qrcode_app',
 
     'django.contrib.sites',
     'allauth',

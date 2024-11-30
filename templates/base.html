@@ -41,18 +41,18 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">Automate With Django</a>
             {% if user.is_authenticated %}
-            <div>
+            <div class="text-info">
                 Logged in as : <b>{{user}}</b>
                 &nbsp;<a href="{% url 'logout' %}" class="float-right btn btn-outline-danger">Logout</a>
             </div>
             {% else %}
-            <div>
-                <a href="{% url 'login' %}" class="float-right text-decoration-none text-dark">Login</a>&nbsp;
-                <a href="{% url 'register' %}" class="float-right btn btn-success">Register</a>
+            <div class="text-info">
+                <a href="{% url 'login' %}" class="float-right btn btn-outline-primary">Login</a>&nbsp;
+                <a href="{% url 'register' %}" class="float-right btn btn-outline-success">Register</a>
             </div>
             {% endif %}
         </div>

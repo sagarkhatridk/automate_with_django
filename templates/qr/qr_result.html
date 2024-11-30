@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container mt-5 p-3 shadow rounded" style="max-width: 600px;">
+    <h2 class="text-center">Generate QR</h2>
+    <!-- QR Code Result -->
+    <div class="container mt-5 align-items-center text-center">
+        <h2>{{ restaurant_name }}</h2>
+
+        {% if qr_url %}
+        <img src="{{ qr_url }}" alt="QR Code" class="border border-dark rounded">
+
+        <div>
+            <a href="{{ qr_url }}" download="{{ file_name }}" class="btn btn-primary mt-3">Download</a>
+            <br>
+            <small>Thank you for using our QR Code Generator Tool</small>
+        </div>
+        {% endif %}
+
+    </div>
+    {% include 'alerts.html' %}
+</div>
+
+{% endblock %}

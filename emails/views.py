@@ -94,3 +94,4 @@ def track_dashboard(request):
     )
     context = {"emails": emails}
     return render(request, "emails/track_dashboard.html", context)
+

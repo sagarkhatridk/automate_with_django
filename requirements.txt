@@ -15,7 +15,7 @@ crispy-bootstrap5==2023.10
 cryptography==42.0.1
 Django==5.0.1
 django-anymail==10.2
-django-ckeditor==6.7.0
+django-ckeditor==6.7.1
 django-crispy-forms==2.1
 django-js-asset==2.2.0
 gevent==23.9.1
